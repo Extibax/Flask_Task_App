@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href=" {{ url_for('static', filename='bootstrap.min.css') }} "
+    />
+
+    <!-- Font Family -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+
+    <title>Tasks App</title>
+  </head>
+  <body>
+    <main class="container p-4">
+      <h1 class="display-4 text-center mt-4 title">
+        Tasks App
+      </h1>
+
+      <div class="row">
+        <div class="col-md-4 offset-md-4 my-auto">
+          <div class="card">
+            <div class="card-header">
+              <form action="/create_task" method="post">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="task"
+                    id="task"
+                    placeholder="Task"
+                    class="form-control"
+                    autofocus
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                  Save
+                </button>
+              </form>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                {% for task in tasks %}
+                <li class="list-group-item d-flex flex-column text-center">
+                  <div class="mb-4">
+                    <span class="{% if task.done %} done {% endif %}"
+                      >{{task.task}}</span
+                    >
+                  </div>
+                  <a
+                    href="/done_task/{{task.id}}"
+                    class="btn btn-success btn-sm"
+                    >Done</a
+                  >
+                  <a
+                    href="/delete_task/{{task.id}}"
+                    class="btn btn-danger btn-sm"
+                    >Delete</a
+                  >
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="card-footer"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
